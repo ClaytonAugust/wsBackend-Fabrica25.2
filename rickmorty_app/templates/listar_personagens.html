@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Listar Personagens</title>
+</head>
+<body>
+    <h1>Personagens de Rick and Morty</h1>
+
+    <a href="{% url 'importar_personagens' %}">Importar da API</a>
+    <hr>
+
+    {% for personagem in personagens %}
+        <div>
+            <h2>{{ personagem.nome }}</h2>
+            <p><strong>Espécie:</strong> {{ personagem.especie }}</p>
+            <p><strong>Status:</strong> {{ personagem.status }}</p>
+            <p><strong>Gênero:</strong> {{ personagem.genero }}</p>
+            <img src="{{ personagem.imagem }}" alt="{{ personagem.nome }}">
+        </div>
+        <hr>
+    {% empty %}
+        <p>Nenhum personagem encontrado.</p>
+    {% endfor %}
+    
+</body>
+</html>
