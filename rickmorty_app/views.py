@@ -46,3 +46,15 @@ def criar_personagem(request):
     else:
         form = PersonagemForm()
     return render(request, 'criar_personagem.html', {'form': form})
+
+# editar personagem
+def editar_personagem(request, api_id):
+    personagem = get_object_or_404(Personagem, api_id=api_id)
+    if request.method == "POST":
+        form = PersonagemForm(request.POST, instance=personagem)
+        if form.is_valid():
+            form.save()
+            return redirect('listar_personagens')
+    else:
+        form = PersonagemForm(instance=personagem)
+    return render(request, 'editar_personagem.html', {'form': form, 'personagem': personagem})

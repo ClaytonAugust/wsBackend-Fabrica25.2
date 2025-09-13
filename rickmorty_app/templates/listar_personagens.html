@@ -18,6 +18,8 @@
             <p><strong>Status:</strong> {{ personagem.status }}</p>
             <p><strong>Gênero:</strong> {{ personagem.genero }}</p>
             <img src="{{ personagem.imagem }}" alt="{{ personagem.nome }}">
+            <a href="{% url 'editar_personagem' personagem.pk %}">Editar</a>
+
         </div>
         <hr>
     {% empty %}
