@@ -5,26 +5,64 @@
     <title>Listar Personagens</title>
 </head>
 <body>
-    <h1>Personagens de Rick and Morty</h1>
+    <h1>Personagens do Banco de Dados</h1>
 
-    <a href="{% url 'importar_personagens' %}">Importar da API</a>
-    <a href="{% url 'criar_personagem' %}">Adicionar manualmente</a>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        <hr>
+    {% endif %}
+
+    <form method="get" action="{% url 'listar_personagens' %}">
+        <input type="text" name="q" placeholder="Buscar por nome..." value="{{ query }}">
+        <button type="submit">Pesquisar</button>
+    </form>
+    
+    <hr>
+    
+    <a href="{% url 'criar_personagem' %}">Criar Novo Personagem</a>
+    <br>
+    <a href="{% url 'importar_personagens_otimizado' %}"><b>Importar Próxima Página da API (Otimizado)</b></a>
     <hr>
 
-    {% for personagem in personagens %}
-        <div>
-            <h2>{{ personagem.nome }}</h2>
-            <p><strong>Espécie:</strong> {{ personagem.especie }}</p>
-            <p><strong>Status:</strong> {{ personagem.status }}</p>
-            <p><strong>Gênero:</strong> {{ personagem.genero }}</p>
-            <img src="{{ personagem.imagem }}" alt="{{ personagem.nome }}">
-            <a href="{% url 'editar_personagem' personagem.pk %}">Editar</a>
-            <a href="{% url 'deletar_personagem' personagem.pk %}">Deletar</a>
-        </div>
-        <hr>
+    {% for personagem in page_obj.object_list %}
+    <div>
+        <h2>{{ personagem.nome }}</h2>
+        <img src="{{ personagem.imagem }}" alt="{{ personagem.nome }}" width="100">
+        <p><b>Status:</b> {{ personagem.status }}</p>
+        <p><b>Espécie:</b> {{ personagem.especie }}</p>
+        <p><b>Gênero:</b> {{ personagem.genero }}</p>
+        <p><b>Episódios:</b> 
+          {% for ep in personagem.episodios.all %}
+            {{ ep.codigo }} - {{ ep.nome }}<br>
+          {% empty %}
+            Nenhum episódio registrado
+          {% endfor %}
+        </p>
+        
+        <a href="{% url 'editar_personagem' api_id=personagem.api_id %}">Editar</a>
+        <a href="{% url 'deletar_personagem' api_id=personagem.api_id %}" style="color: red;">Deletar</a>
+    </div>
+    <hr>
     {% empty %}
-        <p>Nenhum personagem encontrado.</p>
+    <p>Nenhum personagem encontrado no banco de dados.</p>
     {% endfor %}
-    
+
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}&q={{ query }}">Anterior</a>
+        {% endif %}
+
+        <span>
+            Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}&q={{ query }}">Próxima</a>
+        {% endif %}
+    </div>
 </body>
 </html>
