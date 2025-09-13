@@ -1,5 +1,5 @@
 from django import forms
-from .models import Personagem, Episodio
+from .models import Personagem
 
 class PersonagemForm(forms.ModelForm):
     class Meta:
@@ -12,16 +12,4 @@ class PersonagemForm(forms.ModelForm):
             'especie': forms.TextInput(attrs={'class': 'form-control'}),
             'genero': forms.TextInput(attrs={'class': 'form-control'}),
             'imagem': forms.URLInput(attrs={'class': 'form-control'}),
-        }
-
-
-class EpisodioForm(forms.ModelForm):
-    class Meta:
-        model = Episodio
-        fields = ['titulo', 'data_exibicao', 'personagens']
-
-        widgets = {
-            'titulo': forms.TextInput(attrs={'class': 'form-control'}),
-            'data_exibicao': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
-            'personagens': forms.SelectMultiple(attrs={'class': 'form-select'}),
         }
