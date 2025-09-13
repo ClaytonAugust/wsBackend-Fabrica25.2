@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <title>Listar Personagens</title>
@@ -8,6 +8,7 @@
     <h1>Personagens de Rick and Morty</h1>
 
     <a href="{% url 'importar_personagens' %}">Importar da API</a>
+    <a href="{% url 'criar_personagem' %}">Adicionar manualmente</a>
     <hr>
 
     {% for personagem in personagens %}
