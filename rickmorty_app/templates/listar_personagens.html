@@ -19,7 +19,7 @@
             <p><strong>Gênero:</strong> {{ personagem.genero }}</p>
             <img src="{{ personagem.imagem }}" alt="{{ personagem.nome }}">
             <a href="{% url 'editar_personagem' personagem.pk %}">Editar</a>
-
+            <a href="{% url 'deletar_personagem' personagem.pk %}">Deletar</a>
         </div>
         <hr>
     {% empty %}

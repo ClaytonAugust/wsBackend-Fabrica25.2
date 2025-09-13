@@ -58,3 +58,11 @@ def editar_personagem(request, api_id):
     else:
         form = PersonagemForm(instance=personagem)
     return render(request, 'editar_personagem.html', {'form': form, 'personagem': personagem})
+
+# deletar personagem
+def deletar_personagem(request, api_id):
+    personagem = get_object_or_404(Personagem, api_id=api_id)
+    if request.method == "POST":
+        personagem.delete()
+        return redirect('listar_personagens')
+    return render(request, 'deletar_personagem.html', {'personagem': personagem})
