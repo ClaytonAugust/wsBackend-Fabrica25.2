@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar Episódios</title>
+</head>
+<body>
+    <h1>Episódios do Banco de Dados</h1>
+    
+    <form method="get" action="{% url 'listar_episodios' %}">
+        <input type="text" name="q" placeholder="Buscar por nome ou código..." value="{{ query }}">
+        <button type="submit">Pesquisar</button>
+    </form>
+    <hr>
+
+    {% for episodio in page_obj.object_list %}
+    <div>
+        <h2>{{ episodio.codigo }} - {{ episodio.nome }}</h2>
+        <p><b>Data:</b> {{ episodio.data_exibicao }}</p>
+        <p><b>Personagens:</b><br>
+          {% for personagem in episodio.personagens.all %}
+            <img src="{{ personagem.imagem }}" alt="{{ personagem.nome }}" width="50" style="vertical-align: middle;"> {{ personagem.nome }}<br>
+          {% empty %}
+            Nenhum personagem registrado
+          {% endfor %}
+        </p>
+    </div>
+    <hr>
+    {% empty %}
+    <p>Nenhum episódio encontrado. Você pode <a href="{% url 'importar_episodios' page=1 %}">importar a primeira página da API</a>.</p>
+    {% endfor %}
+
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}&q={{ query }}">Anterior</a>
+        {% endif %}
+
+        <span>
+            Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}&q={{ query }}">Próxima</a>
+        {% endif %}
+    </div>
+</body>
+</html>
