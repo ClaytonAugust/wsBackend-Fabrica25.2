@@ -1,10 +1,17 @@
 from django import forms
-from .models import Personagem
+from .models import Personagem, Episodio
 
 class PersonagemForm(forms.ModelForm):
+    # Adicionando o campo de episódios para seleção
+    episodios = forms.ModelMultipleChoiceField(
+        queryset=Episodio.objects.all().order_by('nome'),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
+    )
+
     class Meta:
         model = Personagem
-        fields = ['nome', 'status', 'especie', 'genero', 'imagem']
+        fields = ['nome', 'status', 'especie', 'genero', 'imagem', 'episodios']
 
         widgets = {
             'nome': forms.TextInput(attrs={'class': 'form-control'}),
