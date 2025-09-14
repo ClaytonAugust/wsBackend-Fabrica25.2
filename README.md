@@ -60,15 +60,6 @@ python manage.py migrate
 ```bash
 python manage.py runserver
 ```
-## 📡 Endpoints
-
-* `POST /api/jogadores/` → 
-* `GET /api/jogadores/` → Listar jogadores.
-* `GET /api/jogadores/{id}/` → Detalhar jogador.
-* `POST /api/guildas/` → Criar guilda manualmente.
-* `GET /api/guildas/` → Listar guildas.
-
----
 
 ## 🖼️ Páginas dos Template
 
