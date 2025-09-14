@@ -15,6 +15,7 @@ Projeto Django para recebimento de dados dos **Personagens e Episodios**, templa
 
 ## ⚙️ Tecnologias
 
+* [Api Usada](https://rickandmortyapi.com/)
 * [Django](https://www.djangoproject.com/)
 * [Django REST Framework](https://www.django-rest-framework.org/)
 * [PostgreSQL](https://www.postgresql.org/)
@@ -47,32 +48,24 @@ Digite o comando:
 pip install -r requirements.txt
 ```
 ---
-## Após baixar tudo, fazer as migrações.
-Execute:
+## ✅Após baixar tudo, Por essas configurações do POSTGRESQL
 ```bash
-python manage.py makemigrations
+    Nome do banco: rickmortydb       
+    nome do usuario: rickmortyuser
+    PASSWORD: senhasecreta
 ```
-E depois execute:
-```bash
-python manage.py migrate
-```
-## Depois de tudo, checar se está tudo funcionando
-```bash
-python manage.py runserver
-```
-
 ## 🖼️ Páginas dos Template
 
 Para personagens Acesse:
 
-```
+```bash
 http://127.0.0.1:8000/personagens/
 http://127.0.0.1:8000/personagens/novo/
 http://127.0.0.1:8000/personagens/editar/{api_id}/
 http://127.0.0.1:8000/personagens/deletar/{api_id}/
 ```
 Para Episodios Acesse:
-```
+```bash
 http://127.0.0.1:8000/episodios/
 
 ```
